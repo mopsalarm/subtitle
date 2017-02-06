@@ -1,0 +1,39 @@
+<md-dialog>
+  <md-dialog-content style="max-width: 30em">
+    <div class="md-dialog-content" ng-if="!$ctrl.finished">
+      <h2>Bitte warten</h2>
+
+      <p>
+        Dein Video wird verarbeitet. Wenn du diesen Dialog schließt, wird das Verarbeiten des
+        Videos abgebrochen und du kannst es nicht herunterladen.
+      </p>
+
+      <p>
+        Der Server kann nur eine bestimmte Anzahl an Videos gleichzeitig verarbeiten.
+        Es kann vorkommen, dass du etwas länger warten musst.
+      </p>
+
+      <md-progress-linear
+        md-mode="{{ $ctrl.progressMode }}" value="{{ $ctrl.progress }}"></md-progress-linear>
+    </div>
+
+    <div class="md-dialog-content" ng-if="$ctrl.finished">
+      <h2>Fertig</h2>
+
+      <p>
+        Das Video steht nun zum Download bereit!
+      </p>
+
+      <p>
+        Lade es am Besten sofort herunter. Dieser Link kann jederzeit ungültig werden.
+        Falls das Video nur in deinem Browser abgespielt wird, klicke es mit der rechten
+        Maustaste an und wähle "Video speichern unter".
+      </p>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <md-button ng-click="$ctrl.close()">Abbrechen</md-button>
+    <md-button ng-disabled="!$ctrl.finished" class="md-primary" ng-href="{{ $ctrl.videoUrl }}">Herunterladen</md-button>
+  </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,72 @@
+<md-content ng-if="$ctrl.selectedProject == null">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>
+        <span>s0btitle - Projektauswahl</span>
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-content class="md-padding" layout="column" layout-align="top center">
+    <div layout="column" style="width: 40em;">
+      <md-card ng-if="$ctrl.projects.length > 0">
+        <md-card-title>
+          <md-card-title-text class="md-headline">Deine Projekte</md-card-title-text>
+        </md-card-title>
+        <md-list>
+          <md-list-item ng-repeat="project in $ctrl.projects" ng-click="$ctrl.onLoadProjectClicked(project)">
+            <p>{{ project.title }} </p>
+          </md-list-item>
+        </md-list>
+      </md-card>
+
+      <md-card>
+        <form name="projectForm">
+          <md-card-title>
+            <md-card-title-text class="md-headline">Neues Projekt</md-card-title-text>
+          </md-card-title>
+
+          <md-card-content layout="column">
+            <md-input-container>
+              <label>Arbeitstitel</label>
+              <input required name="title" ng-model="$ctrl.newProjectTitle"
+                     autocomplete="off"
+                     placeholder="Tolles Video">
+
+              <div ng-messages="projectForm.title.$error">
+                <div ng-message="required">
+                  Du brauchst einen Titel, damit du das Projekt in deiner Projektübersicht später
+                  wiederfinden kannst.
+                </div>
+              </div>
+            </md-input-container>
+
+            <md-input-container>
+              <label>Video URL</label>
+              <input required name="videoUrl" ng-model="$ctrl.newProjectVideoUrl"
+                     autocomplete="off"
+                     ng-pattern="'https?://pr0gramm.com/[a-z].*/[0-9]+$'"
+                     placeholder="http://pr0gramm.com/top/1756825">
+
+              <div ng-messages="projectForm.videoUrl.$error">
+                <div ng-message-exp="['required', 'pattern']">
+                  Bitte eine gültige pr0gramm URL eintragen.
+                </div>
+              </div>
+            </md-input-container>
+          </md-card-content>
+        </form>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button type="submit" ng-disabled="projectForm.$invalid"
+                     ng-click="$ctrl.createNewProject()">Erstellen
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </md-content>
+</md-content>
+
+<md-content ng-if="$ctrl.selectedProject != null">
+  <project-view project="$ctrl.selectedProject"></project-view>
+</md-content>

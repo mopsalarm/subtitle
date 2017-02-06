@@ -1,0 +1,60 @@
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2>
+      <span>{{ $ctrl.project.title }}</span>
+    </h2>
+
+    <span flex></span>
+
+    <md-button class="md-icon-button"
+               ng-disabled="!$ctrl.undoAvailable"
+               ng-click="$ctrl.undoLastAction()">
+      <md-icon>undo</md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button"
+               ng-disabled="!$ctrl.redoAvailable"
+               ng-click="$ctrl.redoLastAction()">
+      <md-icon>redo</md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button" ng-click="$ctrl.toggleProjectSilent()">
+      <md-icon ng-if="$ctrl.projectIsSilent">volume_off</md-icon>
+      <md-icon ng-if="!$ctrl.projectIsSilent">volume_up</md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button" ng-click="$ctrl.exportProject(event)">
+      <md-icon>file_download</md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button" ng-click="$ctrl.toggleHotkeysCheatSheet()">
+      <md-icon>help</md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+
+<md-content ng-if="$ctrl.loaded">
+  <div layout="column" layout-gt-sm="row">
+    <editor-preview video="$ctrl.video"
+                    subtitles="$ctrl.project.subtitles"
+                    silent="$ctrl.project.silent"
+                    current-time="$ctrl.currentTime"></editor-preview>
+
+    <div layout="column" flex>
+      <editor-panel subtitle="$ctrl.currentSubtitle" current-time="$ctrl.currentTime"
+                    on-new-subtitle="$ctrl.addSubtitle(subtitle)"
+                    on-reset-editor="$ctrl.clearCurrentSubtitle()"></editor-panel>
+
+      <subtitle-list subtitles="$ctrl.project.subtitles"
+                     selected-subtitle="$ctrl.currentSubtitle"
+                     event-handler="$ctrl.subtitleListHandler"></subtitle-list>
+    </div>
+  </div>
+</md-content>
+
+<md-content ng-if="!$ctrl.loaded"
+            layout="row" layout-sm="column" layout-align="space-around"
+            layout-padding>
+
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</md-content>

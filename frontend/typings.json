@@ -1,0 +1,10 @@
+{
+  "globalDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20170123093700"
+  },
+  "dependencies": {
+    "angular": "registry:dt/angular#1.6.0+20170127142558",
+    "angular-hotkeys": "registry:dt/angular-hotkeys#0.0.0+20160709050642",
+    "angular-material": "registry:dt/angular-material#1.1.0+20170112174021"
+  }
+}

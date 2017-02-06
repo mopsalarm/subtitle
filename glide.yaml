@@ -1,0 +1,17 @@
+package: github.com/mopsalarm/s0btitle
+import:
+- package: github.com/julienschmidt/httprouter
+  version: ~1.1.0
+- package: github.com/Sirupsen/logrus
+  version: ~0.11.0
+- package: github.com/unrolled/render
+- package: github.com/lib/pq
+- package: github.com/jmoiron/sqlx
+- package: github.com/pkg/errors
+  version: ~0.8.0
+- package: github.com/golang/freetype
+- package: golang.org/x/image
+  subpackages:
+  - font
+- package: github.com/lucasb-eyer/go-colorful
+- package: github.com/disintegration/gift

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@types/angular": "^1.6.3",
+    "@types/angular-hotkeys": "0.0.31",
+    "@types/angular-material": "^1.1.44",
+    "typescript": "^2.1.5"
+  }
+}

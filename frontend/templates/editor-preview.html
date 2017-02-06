@@ -1,0 +1,54 @@
+<div ng-if="$ctrl.video != null" class="editor-preview">
+  <md-card>
+    <div class="editor-preview">
+      <!-- Create a container with the correct aspect ratio -->
+      <div ng-style="{'padding-bottom': (100 / $ctrl.video.aspect) + '%', background: '#ddd'}"></div>
+
+      <!-- Add the video -->
+      <video
+        su-video-seek="$ctrl.currentTime"
+        su-video-play="$ctrl.previewVideoTime"
+        su-video-play-silent="$ctrl.silent"
+        preload class="editor-preview__video" ng-src="{{ $ctrl.videoUrl }}"></video>
+
+      <!-- And add the currently active subtitles -->
+      <subtitle config="subtitle" ng-repeat="subtitle in $ctrl.activeSubtitles"></subtitle>
+    </div>
+
+    <div layout="row" layout-align="center center">
+      <md-button class="md-icon-button" ng-click="$ctrl.moveToStart()">
+        <md-icon>first_page</md-icon>
+      </md-button>
+
+      <md-button class="editor-preview__action" ng-click="$ctrl.moveBy(-5)">-5s</md-button>
+      <md-button class="editor-preview__action" ng-click="$ctrl.moveBy(-1)">-1s</md-button>
+      <md-button class="editor-preview__action" ng-click="$ctrl.moveBy(-0.2)">-.2s</md-button>
+
+      <md-button class="editor-preview__action" ng-click="$ctrl.moveBy(+0.2)">+.2s</md-button>
+      <md-button class="editor-preview__action" ng-click="$ctrl.moveBy(+1)">+1s</md-button>
+      <md-button class="editor-preview__action" ng-click="$ctrl.moveBy(+5)">+5s</md-button>
+
+      <md-button class="md-icon-button" ng-click="$ctrl.moveToEnd()">
+        <md-icon>last_page</md-icon>
+      </md-button>
+    </div>
+
+    <md-divider></md-divider>
+
+    <div layout="row" layout-align="center center">
+      <md-button class="md-icon-button" ng-click="$ctrl.playButtonClicked()">
+        <md-icon>{{ $ctrl.playing ? 'stop' : 'play_arrow' }}</md-icon>
+      </md-button>
+
+      <md-slider flex
+                 ng-model="$ctrl.sliderValue" step="0.2" max="{{ $ctrl.video.duration }}"
+                 ng-disabled="$ctrl.playing"></md-slider>
+
+      <span class="md-body-1" layout-margin>
+        {{ $ctrl.formattedCurrentTime }}
+      </span>
+
+    </div>
+
+  </md-card>
+</div>

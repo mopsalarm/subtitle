@@ -1,0 +1,13 @@
+<md-card>
+  <md-list>
+    <md-list-item ng-repeat="subtitle in $ctrl.subtitles" ng-click="$ctrl.onSubtitleClicked(subtitle)"
+      ng-class="{'list-item--active': $ctrl.isSelected(subtitle)}">
+      <p>
+        <small>{{ $ctrl.formatSubtitleStart(subtitle) }}</small>
+        <span>{{ subtitle.text }}</span>
+      </p>
+
+      <md-icon ng-click="$ctrl.onDeleteSubtitleClicked(subtitle)" class="md-secondary md-hue-3">delete</md-icon>
+    </md-list-item>
+  </md-list>
+</md-card>

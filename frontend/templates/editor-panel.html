@@ -1,0 +1,103 @@
+<md-card class="subtitle-editor">
+  <form>
+    <md-card-content layout="column">
+      <md-input-container>
+        <label>Untertitel</label>
+        <textarea ng-model="$ctrl.subtitle.text" apply-focus="$ctrl.textFieldHasFocus"></textarea>
+      </md-input-container>
+
+      <div layout="row" layout-align="begin center">
+        <md-input-container style="min-width:12em;">
+          <label>Farbe</label>
+
+          <md-select ng-model="$ctrl.subtitle.color"
+                     md-selected-text="$ctrl.textForColor">
+
+            <md-option ng-repeat="entry in $ctrl.defaultColors"
+                       ng-style="::{color: entry.color, textShadow: '0 0 0.5em rgba(0,0,0,0.5)'}"
+                       ng-value="entry.color">
+
+              {{ entry.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <icon-group layout="row">
+          <md-button class="md-icon-button"
+                     ng-class="{'md-primary': $ctrl.subtitle.position.x == 'left'}"
+                     ng-click="$ctrl.updateSubtitlePosition('x', 'left')">
+            <md-icon>format_align_left</md-icon>
+          </md-button>
+
+          <md-button class="md-icon-button icon-group"
+                     ng-class="{'md-primary': $ctrl.subtitle.position.x == 'center'}"
+                     ng-click="$ctrl.updateSubtitlePosition('x', 'center')">
+            <md-icon>format_align_center</md-icon>
+          </md-button>
+
+          <md-button class="md-icon-button icon-group"
+                     ng-class="{'md-primary': $ctrl.subtitle.position.x == 'right'}"
+                     ng-click="$ctrl.updateSubtitlePosition('x', 'right')">
+            <md-icon>format_align_right</md-icon>
+          </md-button>
+        </icon-group>
+
+        <icon-group layout="row">
+          <md-button class="md-icon-button"
+                     ng-class="{'md-primary': $ctrl.subtitle.position.y == 'bottom'}"
+                     ng-click="$ctrl.updateSubtitlePosition('y', 'bottom')">
+            <md-icon>vertical_align_bottom</md-icon>
+          </md-button>
+
+          <md-button class="md-icon-button icon-group"
+                     ng-class="{'md-primary': $ctrl.subtitle.position.y == 'center'}"
+                     ng-click="$ctrl.updateSubtitlePosition('y', 'center')">
+            <md-icon>vertical_align_center</md-icon>
+          </md-button>
+
+          <md-button class="md-icon-button icon-group"
+                     ng-class="{'md-primary': $ctrl.subtitle.position.y == 'top'}"
+                     ng-click="$ctrl.updateSubtitlePosition('y', 'top')">
+            <md-icon>vertical_align_top</md-icon>
+          </md-button>
+        </icon-group>
+      </div>
+
+      <div layout="row" ng-if="!$ctrl.subtitle._new">
+        <md-input-container>
+          <label>Start (Sekunden)</label>
+          <input type="number" step="0.1" min="0" ng-model="$ctrl.subtitle.time" ng-model-options="{updateOn: 'blur'}">
+        </md-input-container>
+
+        <md-button ng-click="$ctrl.snapStartTime()">Aktuelle Zeit</md-button>
+      </div>
+
+      <div layout="row" ng-if="!$ctrl.subtitle._new">
+        <md-input-container>
+          <label>Endzeit (Sekunden)</label>
+          <input type="number" min="{{ $ctrl.subtitle.time+0.1 }}" step="0.1"
+                 ng-model="$ctrl.endTime" ng-model-options="{updateOn: 'blur'}">
+        </md-input-container>
+
+        <md-button ng-disabled="!$ctrl.canSnapEndTime" ng-click="$ctrl.snapEndTime()">Aktuelle Zeit</md-button>
+      </div>
+    </md-card-content>
+
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button ng-if="$ctrl.isNewSubtitle" ng-click="$ctrl.reset()">
+        Zurücksetzen
+      </md-button>
+
+      <md-button class="md-primary"
+                 type="submit"
+                 ng-if="$ctrl.isNewSubtitle" ng-disabled="!$ctrl.isValid"
+                 ng-click="$ctrl.persist()">Hinzufügen
+      </md-button>
+
+      <md-button class="md-primary" ng-if="!$ctrl.isNewSubtitle" ng-click="$ctrl.reset()">
+        Neu
+      </md-button>
+
+    </md-card-actions>
+  </form>
+</md-card>

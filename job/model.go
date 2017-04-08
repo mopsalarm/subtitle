@@ -1,4 +1,4 @@
-package main
+package job
 
 type Project struct {
 	Id        string

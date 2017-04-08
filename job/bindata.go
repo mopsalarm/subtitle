@@ -3,7 +3,7 @@
 // assets/font.ttf
 // DO NOT EDIT!
 
-package main
+package job
 
 import (
 	"bytes"

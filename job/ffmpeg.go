@@ -1,4 +1,4 @@
-package main
+package job
 
 import (
   "time"
@@ -8,7 +8,6 @@ import (
   "os/exec"
   "os"
   "encoding/json"
-  "github.com/mopsalarm/s0btitle/progress"
   "github.com/Sirupsen/logrus"
   "strings"
   "io"
@@ -39,7 +38,7 @@ func ReadVideoInfo(filename string) (*VideoInfo, error) {
   return &result, errors.WithMessage(err, "Could not decode ffprobe output")
 }
 
-func FFmpeg(workspace string, progress progress.Updater, args ...string) error {
+func FFmpeg(workspace string, progress ProgressUpdater, args ...string) error {
   logrus.Debug("ffmpeg ", strings.Join(args, " "))
 
   // prepend a few defaults to the arguments
@@ -68,7 +67,7 @@ func FFmpeg(workspace string, progress progress.Updater, args ...string) error {
 
 type ffmpegTimeProgressWriter struct {
   Delegate  io.Writer
-  Progress  progress.Updater
+  Progress  ProgressUpdater
 
   totalTime *time.Duration
 }

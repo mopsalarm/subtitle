@@ -2,5 +2,7 @@
 
 set -e
 
-go-bindata assets/
+# pack the assets/ directory into the binary
+go-bindata -pkg job -o job/bindata.go assets/
+
 go build

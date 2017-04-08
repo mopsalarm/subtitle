@@ -1,11 +1,11 @@
-package progress
+package job
 
 import (
   "sync"
   "math"
 )
 
-type Updater func(current, total int)
+type ProgressUpdater func(current, total int)
 
 type Meter struct {
   steps    int
@@ -14,7 +14,7 @@ type Meter struct {
   progress float64
 }
 
-func New(steps int) *Meter {
+func NewProgressMeter(steps int) *Meter {
   return &Meter{
     steps: steps,
   }
@@ -31,7 +31,7 @@ func (pm *Meter) Progress() float64 {
   return pm.progress;
 }
 
-func (pm *Meter) Finish() {
+func (pm *Meter) FinishNow() {
   pm.lock.Lock()
   defer pm.lock.Unlock()
 
@@ -42,7 +42,7 @@ func (pm *Meter) Finished() bool {
   return pm.Progress() >= 1.0
 }
 
-func (pm *Meter) Step(n int) Updater {
+func (pm *Meter) Step(n int) ProgressUpdater {
   return func(current, total int) {
     pm.lock.Lock()
     defer pm.lock.Unlock()

@@ -88,11 +88,12 @@ class EditorPreviewController implements IController {
 
   private preview(): void {
     this.playing = true;
-    this.previewVideoTime = Math.max(0, this.currentTime - 2);
+    this.previewVideoTime = Math.max(0, this.currentTime);
   }
 
   private stop(): void {
     if (this.previewVideoTime > this.currentTime) {
+      console.log("Setting currentTime to video player time:", this.previewVideoTime);
       this.currentTime = this.previewVideoTime;
     }
 
@@ -188,7 +189,8 @@ function VideoPlayDirectiveFactory($interval: IIntervalService): IDirective {
     },
 
     scope: {
-      suVideoPlay: "=",
+      suVideoPlay: "<",
+      suVideoPosition: "=",
       suVideoPlaySilent: "<",
     }
   };
